@@ -1,4 +1,6 @@
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime
+from multiprocessing import cpu_count
 
 from tqdm import tqdm
 
@@ -9,7 +11,7 @@ def wallis(n):
         left = (2. * i) / (2. * i - 1.)
         right = (2. * i) / (2. * i + 1.)
         pi = pi * left * right
-    return pi
+    # print(len(str(pi)), 'decimals')
 
 
 def fib_range(n):
@@ -18,8 +20,14 @@ def fib_range(n):
             return 1
         else:
             return fib(n - 1) + fib(n - 2)
-    for i in tqdm(range(1, n)):
-        fib(i)
+    # for i in tqdm(range(1, n)):
+    #     fib(i)
+    cpus = cpu_count()
+    with ThreadPoolExecutor(max_workers=cpus) as executor:
+        fibs = [executor.submit(fib, i) for i in range(1, n)]
+        with tqdm(total=n) as pbar:
+            for future in as_completed(fibs):
+                pbar.update()
 
 
 def fib_loop(n):
@@ -29,12 +37,12 @@ def fib_loop(n):
         nxt = f + s
         f = s
         s = nxt
-    print(len(str(s)), 'decimals')
+    # print(len(str(s)), 'decimals')
 
 
 def benchmnarks():
     print('calculating pi:')
-    wallis(2**22)
+    wallis(2**25)
 
     print('\ncalculating fib recursive:')
     fib_range(2**5 + 2**2 + 2)
