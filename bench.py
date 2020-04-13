@@ -1,7 +1,5 @@
 from datetime import datetime
-from statistics import mean
 
-from memory_profiler import memory_usage
 from tqdm import tqdm
 
 
@@ -47,12 +45,10 @@ def benchmnarks():
 
 def main():
     start = datetime.now()
-    # benchmnarks()
-    mem = memory_usage((benchmnarks, [], {}))
+    benchmnarks()
     end = datetime.now()
     result = end - start
     print('\nbenchmark time:', result)
-    print('mean memory usage:', mean(mem))
 
 
 if __name__ == "__main__":

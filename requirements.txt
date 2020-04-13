@@ -1,2 +1,1 @@
-memory_profiler
 tqdm
