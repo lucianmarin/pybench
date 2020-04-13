@@ -6,6 +6,7 @@ The purpose is to optimize modern CPUs for Python and make sure new versions of 
 
 It can also be used as a syntetic CPU benchmark.
 
+
 ## Install and run
 
 ```
@@ -16,7 +17,8 @@ python3 bench.py
 ## Times
 
 Tested CPUs:
-- Intel i5-8210Y: 1m 6s
-- Snapdragon 835: 1m 53s
+- Intel i7-8565U: 50s
+- Intel i5-8210Y: 59.8s
+- Snapdragon 835: 8m 20s
 
 Less is always better!
