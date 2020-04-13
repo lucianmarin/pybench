@@ -1,2 +1,2 @@
 memory_profiler
-progressbar
+tqdm

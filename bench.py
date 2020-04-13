@@ -2,12 +2,12 @@ from datetime import datetime
 from statistics import mean
 
 from memory_profiler import memory_usage
-from progressbar import progressbar
+from tqdm import tqdm
 
 
 def wallis(n):
     pi = 2.
-    for i in progressbar(range(1, n)):
+    for i in tqdm(range(1, n)):
         left = (2. * i) / (2. * i - 1.)
         right = (2. * i) / (2. * i + 1.)
         pi = pi * left * right
@@ -20,14 +20,14 @@ def fib_range(n):
             return 1
         else:
             return fib(n - 1) + fib(n - 2)
-    for i in progressbar(range(1, n)):
+    for i in tqdm(range(1, n)):
         fib(i)
 
 
 def fib_loop(n):
     f = 0
     s = 1
-    for x in progressbar(range(2, n)):
+    for x in tqdm(range(2, n)):
         nxt = f + s
         f = s
         s = nxt
@@ -36,24 +36,23 @@ def fib_loop(n):
 
 def benchmnarks():
     print('calculating pi:')
-    mem = memory_usage((wallis, [], {'n': 2**22}))
-    print('mean mem:', mean(mem))
+    wallis(2**22)
 
     print('\ncalculating fib recursive:')
-    mem = memory_usage((fib_range, [], {'n': 2**5 + 2**2 + 2}))
-    print('mean mem:', mean(mem))
+    fib_range(2**5 + 2**2 + 2)
 
     print('\ncalculating fib iterative:')
-    mem = memory_usage((fib_loop, [], {'n': 2**20}))
-    print('mean mem:', mean(mem))
+    fib_loop(2**20)
 
 
 def main():
     start = datetime.now()
-    benchmnarks()
+    # benchmnarks()
+    mem = memory_usage((benchmnarks, [], {}))
     end = datetime.now()
     result = end - start
-    print('\nresult is', result)
+    print('\nbenchmark time:', result)
+    print('mean memory usage:', mean(mem))
 
 
 if __name__ == "__main__":
