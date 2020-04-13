@@ -15,7 +15,8 @@ python3 bench.py
 
 ## Times
 
-Intel i5-8210Y: 45.5s
-Snapdragon 835: 1m 53s
+Tested CPUs:
+- Intel i5-8210Y: 45.5s
+- Snapdragon 835: 1m 53s
 
 Less is always better!
