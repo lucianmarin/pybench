@@ -1,6 +1,8 @@
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime
 from multiprocessing import cpu_count
+from lzma import LZMACompressor
+from bz2 import BZ2Compressor
 
 from tqdm import tqdm
 
@@ -40,14 +42,28 @@ def fib_loop(n):
     # print(len(str(s)), 'decimals')
 
 
+def compress(n, c_class, c_args=[]):
+    c = c_class(*c_args)
+    zero = b"0"
+    for i in tqdm(range(n)):
+        c.compress(zero * n)
+    c.flush()
+
+
 def benchmnarks():
+    print('compressing bz2:')
+    compress(n=2**15, c_class=BZ2Compressor, c_args=[1])
+
+    print('compressing lzma:')
+    compress(n=2**15, c_class=LZMACompressor)
+
     print('calculating pi:')
     wallis(2**25)
 
-    print('\ncalculating fib recursive:')
+    print('calculating fib recursive:')
     fib_range(2**5 + 2**2 + 2)
 
-    print('\ncalculating fib iterative:')
+    print('calculating fib iterative:')
     fib_loop(2**20)
 
 
@@ -56,7 +72,7 @@ def main():
     benchmnarks()
     end = datetime.now()
     result = end - start
-    print('\nbenchmark time:', result)
+    print('benchmark time:', result)
 
 
 if __name__ == "__main__":
