@@ -18,6 +18,7 @@ python3 pybench.py
 
 Tested CPUs:
 - Apple M1: 65.637987s
-- Intel Core (Skylake): 86.659294s
+- Intel Core (Skylake, IBRS, 3792 MHz): 86.659294s
+- Qualcomm Snapdragon 765G: 252.073677s
 
 Less is always better!
