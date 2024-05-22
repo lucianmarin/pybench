@@ -1,10 +1,10 @@
-# pybench
+# PyBench
 
-Python benchmark inspired by Geekbench.
+PyBench 2.0 is a Python benchmark inspired by Geekbench.
 
 The purpose is to optimize modern CPUs for Python and make sure new versions of Python are getting faster.
 
-It can also be used as a syntetic CPU benchmark.
+It can also be used as a syntetic CPU benchmark to run on computers and servers.
 
 
 ## Install and run
@@ -17,8 +17,7 @@ python3 bench.py
 ## Times
 
 Tested CPUs:
-- Intel i7-8565U: 50s
-- Intel i5-8210Y: 59.8s
-- Snapdragon 835: 8m 20s
+- Apple M1: 65.637987s
+
 
 Less is always better!
