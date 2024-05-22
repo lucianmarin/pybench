@@ -58,13 +58,13 @@ def compress(n, c_class, c_args=[]):
 
 
 def benchmnarks():
-    print('Compress using BZ2:')
+    print('Compress using BZ2 algorithm:')
     compress(n=2**10, c_class=BZ2Compressor, c_args=[1])
 
-    print('Compress using LZMA:')
+    print('\nCompress using LZMA algorithm:')
     compress(n=2**11, c_class=LZMACompressor)
 
-    print('Calculate Pi using Wallis product:')
+    print('\nCalculate Pi using Wallis product:')
     pi_wallis(2**26)
 
     print('\nCalculate Fibonacci numbers recursively:')

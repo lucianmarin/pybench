@@ -11,13 +11,13 @@ It can also be used as a syntetic CPU benchmark to run on computers and servers.
 
 ```
 pip install -r requirements.txt
-python3 bench.py
+python3 pybench.py
 ```
 
-## Times
+## Benchmark times
 
 Tested CPUs:
 - Apple M1: 65.637987s
-
+- Intel Core (Skylake): 86.659294s
 
 Less is always better!
