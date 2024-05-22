@@ -16,9 +16,9 @@ python3 pybench.py
 
 ## Benchmark times
 
-Tested CPUs:
-- Apple M1: 65.637987s
-- Intel Core (Skylake, IBRS, 3792 MHz): 86.659294s
-- Qualcomm Snapdragon 765G: 252.073677s
+- Python 3.12 on Apple M1: 65.637987s
+- Python 3.11 on Intel Core (Skylake, IBRS, 3792 MHz): 86.659294s
+- Python 3.13 on Intel Xeon (2.20 GHz): 146.932857s
+- Python 3.11 on Qualcomm Snapdragon 765G: 252.073677s
 
 Less is always better!
