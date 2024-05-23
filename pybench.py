@@ -1,14 +1,16 @@
-import string
 from bz2 import BZ2Compressor
 from lzma import LZMACompressor
 from random import random
+from string import printable
 from time import time
+from os import get_terminal_size
 
 
 def progress_bar(iterable):
     total = len(iterable)
-    bar_width = 40
     start_time = time()
+    columns, lines = get_terminal_size()
+    bar_width = columns - 20 if columns < 60 else 40
 
     def show_progress(iteration):
         progress = int(bar_width * iteration / total)
@@ -20,8 +22,8 @@ def progress_bar(iterable):
         )
 
         bar = "=" * progress + " " * (bar_width - progress)
-        percent_complete = (iteration / total) * 100
-        output = f"\r[{bar}] {percent_complete:.1f}% Elapsed: {elapsed_str}"
+        percent_complete = round((iteration / total) * 100, 1)
+        output = f"\r[{bar}] {percent_complete: >5}% {elapsed_str}"
         print(output, end='', flush=True)
 
     for i, item in enumerate(iterable, 1):
@@ -67,7 +69,7 @@ def multiply_matrices(size):
 
 def compress(n, algo_class, algo_args=[]):
     algo = algo_class(*algo_args)
-    data = string.printable.encode()
+    data = printable.encode()
     for i in progress_bar(range(n)):
         algo.compress(data * n)
     algo.flush()

@@ -6,23 +6,22 @@ The purpose is to optimize modern CPUs for Python and make sure new versions of 
 
 It can also be used as a syntetic CPU benchmark to run on computers and servers.
 
-
 ## Runtime
 
 ```
 > python3 pybench.py
 Compress using BZ2 algorithm:
-[========================================] 100.0% Elapsed: 0:00:15
+[========================================] 100.0% 0:00:15
 Compress using LZMA algorithm:
-[========================================] 100.0% Elapsed: 0:00:16
+[========================================] 100.0% 0:00:16
 Calculate Pi using Wallis product:
-[========================================] 100.0% Elapsed: 0:00:13
+[========================================] 100.0% 0:00:13
 Calculate Fibonacci numbers recursively:
-[========================================] 100.0% Elapsed: 0:00:17
+[========================================] 100.0% 0:00:17
 Calculate Fibonacci numbers iteratively:
-[========================================] 100.0% Elapsed: 0:00:15
+[========================================] 100.0% 0:00:15
 Multiply matrices:
-[========================================] 100.0% Elapsed: 0:00:16
+[========================================] 100.0% 0:00:16
 Benchmark time: 93.9806 seconds
 ```
 
