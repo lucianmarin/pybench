@@ -28,10 +28,10 @@ Benchmark time: 94.750028 seconds
 
 ## Benchmark times
 
-- Python 3.12 on Apple M1 (power): 59.403723s
-- Python 3.12 on Apple M1 (battery): 94.750028s
-- Python 3.11 on Qualcomm Snapdragon 765G: 187.072155s
-- Python 3.11 on Intel Core (Skylake, IBRS, 3792 MHz): 205.720891s
-- Python 3.13 on Intel Xeon (2.20 GHz): 329.178737s
+- Python 3.12 on Apple M1 (power): 59.4037s
+- Python 3.12 on Apple M1 (battery): 94.75s
+- Python 3.11 on Qualcomm Snapdragon 765G: 187.0722s
+- Python 3.11 on Intel Core (Skylake, IBRS, 3792 MHz): 205.7209s
+- Python 3.13 on Intel Xeon (2.20 GHz): 329.1787s
 
 Less is always better!

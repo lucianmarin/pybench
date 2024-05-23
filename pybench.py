@@ -1,15 +1,14 @@
 import string
 from bz2 import BZ2Compressor
-from datetime import datetime
 from lzma import LZMACompressor
 from random import random
 from time import time
 
 
-def progress_bar(iterable, total=None, start_time=None):
-    total = total or len(iterable)
+def progress_bar(iterable):
+    total = len(iterable)
     bar_width = 40
-    start_time = start_time or time()
+    start_time = time()
 
     def show_progress(iteration):
         progress = int(bar_width * iteration / total)
@@ -95,11 +94,10 @@ def benchmarks():
 
 
 def main():
-    start = datetime.now()
+    start_time = time()
     benchmarks()
-    end = datetime.now()
-    result = end - start
-    print('Benchmark time:', result.total_seconds(), 'seconds')
+    elapsed_time = time() - start_time
+    print('Benchmark time:', round(elapsed_time, 4), 'seconds')
 
 
 if __name__ == "__main__":
