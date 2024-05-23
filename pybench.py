@@ -32,9 +32,9 @@ def progress_bar(iterable, total=None, start_time=None):
     print()  # newline after progress bar completion
 
 
-def pi_wallis(iterations):
+def pi_wallis(n):
     pi = 2.
-    for i in progress_bar(range(1, iterations)):
+    for i in progress_bar(range(1, n)):
         left = (2. * i) / (2. * i - 1.)
         right = (2. * i) / (2. * i + 1.)
         pi = pi * left * right
@@ -74,7 +74,7 @@ def compress(n, algo_class, algo_args=[]):
     algo.flush()
 
 
-def benchmnarks():
+def benchmarks():
     print('Compress using BZ2 algorithm:')
     compress(n=2**10, algo_class=BZ2Compressor, algo_args=[1])
 
@@ -96,7 +96,7 @@ def benchmnarks():
 
 def main():
     start = datetime.now()
-    benchmnarks()
+    benchmarks()
     end = datetime.now()
     result = end - start
     print('Benchmark time:', result.total_seconds(), 'seconds')
