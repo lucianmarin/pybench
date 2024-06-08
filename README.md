@@ -34,3 +34,5 @@ Benchmark time: 93.9806 seconds
 - Python 3.13 on Intel Xeon (2.20 GHz): 329.1787s
 
 Less is always better!
+
+Intel Core running at near 4 GHz powers the server hosting [Subreply](https://subreply.com/) - a tiny, but mighty social network.
