@@ -1,9 +1,9 @@
 from bz2 import BZ2Compressor
 from lzma import LZMACompressor
+from os import get_terminal_size
 from random import random
 from string import printable
 from time import time
-from os import get_terminal_size
 
 
 def progress_bar(iterable):
