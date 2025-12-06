@@ -9,7 +9,7 @@ It can also be used as a syntetic CPU benchmark to run on computers and servers.
 ## Runtime
 
 ```
-> python3 pybench.py
+> python3 bench.py
 Compress using BZ2 algorithm:
 [========================================] 100.0% 0:00:15
 Compress using LZMA algorithm:
