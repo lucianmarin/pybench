@@ -6,7 +6,7 @@ from string import printable
 from time import time
 
 
-def progress_bar(iterable):
+def progress_bar(iterable, rate=8):
     total = len(iterable)
     start_time = time()
     columns, lines = get_terminal_size()
@@ -28,7 +28,8 @@ def progress_bar(iterable):
 
     for i, item in enumerate(iterable, 1):
         yield item
-        show_progress(i)
+        if i % rate or i == total:
+            show_progress(i)
 
     print()  # newline after progress bar completion
 
