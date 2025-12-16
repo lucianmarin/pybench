@@ -7,16 +7,13 @@ from time import time, sleep
 import threading
 
 
-def progress_bar(iterable, async_update=True, refresh_interval=0.2):
+def progress_bar(iterable, refresh_interval=0.2):
     """
-    Progress bar generator.
+    Async-only progress bar generator.
 
-    If `async_update` is True (default) the progress display is updated from a
-    background thread at `refresh_interval` seconds so long-running work inside
-    the loop won't prevent the progress display from refreshing.
-
-    If `async_update` is False the progress display is updated on each
-    iteration (synchronous update).
+    The progress display is updated from a background thread at
+    `refresh_interval` seconds so long-running work inside the loop won't
+    prevent the progress display from refreshing.
     """
 
     total = len(iterable)
@@ -28,8 +25,6 @@ def progress_bar(iterable, async_update=True, refresh_interval=0.2):
     stop_event = threading.Event()
 
     def show_progress(iteration_local):
-        # avoid division by zero
-        iter_for_calc = max(1, iteration_local)
         progress = int(bar_width * iteration_local / total)
         elapsed_time = time() - start_time
         minutes, seconds = divmod(elapsed_time, 60)
@@ -43,26 +38,26 @@ def progress_bar(iterable, async_update=True, refresh_interval=0.2):
         output = f"\r[{bar}] {percent_complete: >5}% {elapsed_str}"
         print(output, end='', flush=True)
 
-    worker_thread = None
-    if async_update:
-        def _worker():
-            while not stop_event.is_set():
-                show_progress(iteration)
-                sleep(refresh_interval)
+    # handle zero-length iterables safely
+    if total == 0:
+        print()
+        return
 
-        worker_thread = threading.Thread(target=_worker, daemon=True)
-        worker_thread.start()
+    def _worker():
+        while not stop_event.is_set():
+            show_progress(iteration)
+            sleep(refresh_interval)
+
+    worker_thread = threading.Thread(target=_worker, daemon=True)
+    worker_thread.start()
 
     for i, item in enumerate(iterable, 1):
         yield item
         iteration = i
-        if not async_update:
-            # synchronous mode: update every iteration
-            show_progress(i)
 
     # ensure final state is shown and background worker stops
     stop_event.set()
-    if async_update and worker_thread is not None:
+    if worker_thread is not None:
         show_progress(total)
         worker_thread.join(timeout=refresh_interval * 2)
 
