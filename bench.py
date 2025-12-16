@@ -3,17 +3,34 @@ from lzma import LZMACompressor
 from os import get_terminal_size
 from random import random
 from string import printable
-from time import time
+from time import time, sleep
+import threading
 
 
-def progress_bar(iterable, rate=8):
+def progress_bar(iterable, async_update=True, refresh_interval=0.2):
+    """
+    Progress bar generator.
+
+    If `async_update` is True (default) the progress display is updated from a
+    background thread at `refresh_interval` seconds so long-running work inside
+    the loop won't prevent the progress display from refreshing.
+
+    If `async_update` is False the progress display is updated on each
+    iteration (synchronous update).
+    """
+
     total = len(iterable)
     start_time = time()
     columns, lines = get_terminal_size()
     bar_width = columns - 20 if columns < 60 else 40
 
-    def show_progress(iteration):
-        progress = int(bar_width * iteration / total)
+    iteration = 0
+    stop_event = threading.Event()
+
+    def show_progress(iteration_local):
+        # avoid division by zero
+        iter_for_calc = max(1, iteration_local)
+        progress = int(bar_width * iteration_local / total)
         elapsed_time = time() - start_time
         minutes, seconds = divmod(elapsed_time, 60)
         hours, minutes = divmod(minutes, 60)
@@ -22,14 +39,32 @@ def progress_bar(iterable, rate=8):
         )
 
         bar = "=" * progress + " " * (bar_width - progress)
-        percent_complete = round((iteration / total) * 100, 1)
+        percent_complete = round((iteration_local / total) * 100, 1)
         output = f"\r[{bar}] {percent_complete: >5}% {elapsed_str}"
         print(output, end='', flush=True)
 
+    worker_thread = None
+    if async_update:
+        def _worker():
+            while not stop_event.is_set():
+                show_progress(iteration)
+                sleep(refresh_interval)
+
+        worker_thread = threading.Thread(target=_worker, daemon=True)
+        worker_thread.start()
+
     for i, item in enumerate(iterable, 1):
         yield item
-        if i % rate or i == total:
+        iteration = i
+        if not async_update:
+            # synchronous mode: update every iteration
             show_progress(i)
+
+    # ensure final state is shown and background worker stops
+    stop_event.set()
+    if async_update and worker_thread is not None:
+        show_progress(total)
+        worker_thread.join(timeout=refresh_interval * 2)
 
     print()  # newline after progress bar completion
 
