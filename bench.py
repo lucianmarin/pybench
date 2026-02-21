@@ -98,7 +98,7 @@ def multiply_matrices(size):
             C[i][j] = sum(A[i][k] * B[k][j] for k in range(size))
 
 
-def compress(n, algo_class, algo_args=[]):
+def compress(n, algo_class, algo_args=()):
     algo = algo_class(*algo_args)
     data = printable.encode()
     for i in progress_bar(range(n)):
@@ -108,7 +108,7 @@ def compress(n, algo_class, algo_args=[]):
 
 def benchmarks():
     print('Compress using BZ2 algorithm:')
-    compress(n=2**10, algo_class=BZ2Compressor, algo_args=[1])
+    compress(n=2**10, algo_class=BZ2Compressor, algo_args=(1,))
 
     print('Compress using LZMA algorithm:')
     compress(n=2**11 + 2**10, algo_class=LZMACompressor)
