@@ -1,5 +1,3 @@
-from bz2 import BZ2Compressor
-from lzma import LZMACompressor
 from os import get_terminal_size
 from random import random
 from string import printable
@@ -98,6 +96,28 @@ def multiply_matrices(size):
             C[i][j] = sum(A[i][k] * B[k][j] for k in range(size))
 
 
+class LZWCompressor:
+    def __init__(self):
+        self.dictionary = {bytes([i]): i for i in range(256)}
+        self.next_code = 256
+        self.buffer = b""
+
+    def compress(self, data):
+        for byte in data:
+            self.buffer += bytes([byte])
+            if self.buffer not in self.dictionary:
+                self.dictionary[self.buffer] = self.next_code
+                self.next_code += 1
+                self.buffer = bytes([byte])
+        return b""
+
+    def flush(self):
+        self.dictionary = {bytes([i]): i for i in range(256)}
+        self.next_code = 256
+        self.buffer = b""
+        return b""
+
+
 def compress(n, algo_class, algo_args=()):
     algo = algo_class(*algo_args)
     data = printable.encode()
@@ -107,14 +127,11 @@ def compress(n, algo_class, algo_args=()):
 
 
 def benchmarks():
-    print('Compress using BZ2 algorithm:')
-    compress(n=2**10, algo_class=BZ2Compressor, algo_args=(1,))
-
-    print('Compress using LZMA algorithm:')
-    compress(n=2**11 + 2**10, algo_class=LZMACompressor)
+    print('Compress using LZW algorithm:')
+    compress(n=2**9, algo_class=LZWCompressor)
 
     print('Calculate Pi using Wallis product:')
-    pi_wallis(2**21 + 2**20)
+    pi_wallis(2**26)
 
     print('Calculate Fibonacci numbers recursively:')
     fibonacci_recursive(2**5 + 2**2 + 2 + 1)
