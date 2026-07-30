@@ -1,6 +1,6 @@
 # PyBench
 
-PyBench 2.0 is a Python benchmark inspired by Geekbench.
+PyBench 3.0 is a Python benchmark inspired by Geekbench.
 
 The purpose is to optimize modern CPUs for Python and make sure new versions of Python are getting faster.
 
@@ -10,29 +10,27 @@ It can also be used as a syntetic CPU benchmark to run on computers and servers.
 
 ```
 > python3 bench.py
-Compress using BZ2 algorithm:
-[========================================] 100.0% 0:00:15
-Compress using LZMA algorithm:
-[========================================] 100.0% 0:00:16
+Compress using LZW algorithm:
+[========================================] 100.0% 0:00:08
 Calculate Pi using Wallis product:
-[========================================] 100.0% 0:00:13
+[========================================] 100.0% 0:00:09
 Calculate Fibonacci numbers recursively:
-[========================================] 100.0% 0:00:17
+[========================================] 100.0% 0:00:12
 Calculate Fibonacci numbers iteratively:
-[========================================] 100.0% 0:00:15
+[========================================] 100.0% 0:00:07
 Multiply matrices:
-[========================================] 100.0% 0:00:16
-Benchmark time: 93.9806 seconds
+[========================================] 100.0% 0:00:07
+Benchmark time: 45.7459 seconds
 ```
 
 ## Benchmark times
 
-- Python 3.12 on Apple M1 (power): 59.4037s
-- Python 3.12 on Apple M1 (battery): 93.9806s
-- Python 3.11 on Qualcomm Snapdragon 765G: 187.0722s
-- Python 3.11 on Intel Core (Skylake, IBRS, 3792 MHz): 205.7209s
-- Python 3.13 on Intel Xeon (2.20 GHz): 329.1787s
+- Python 3.14 on Apple M1 (power): 45.7459 seconds
+- Python 3.14 on Apple M1 (battery): 72.7001 seconds
+- Python 3.14 on Apple M4 (power): 28.7314 seconds
+- Python 3.13 on Intel Xeon: 75.4398 seconds
+- Python 3.13 on Samsung Exynos 1680: 84.6202 seconds
 
 Less is always better!
 
-Intel Core running at near 4 GHz powers the server hosting [Subreply](https://subreply.com/) - a tiny, but mighty social network.
+Intel Xeon running at 4 GHz powers the server hosting [Subreply](https://subreply.com/) - a tiny, but mighty social network.
